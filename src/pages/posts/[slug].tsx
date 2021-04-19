@@ -8,6 +8,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import styles from './post.module.scss';
 import { getPrismicClient } from "../../services/prismic";
 import { FiCalendar, FiClock, FiUser } from "react-icons/fi";
+import { useEffect } from "react";
 
 interface PostProps {
 	post: {
@@ -22,6 +23,19 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+
+	useEffect(() => {
+		const script = document.createElement("script");
+		const anchor = document.getElementById("pickles-comments");
+		script.setAttribute("src", "https://utteranc.es/client.js");
+		script.setAttribute("crossorigin", "anonymous");
+		script.setAttribute("async", "true");
+		script.setAttribute("repo", "thalesdev/picklesnews");
+		script.setAttribute("issue-term", `post-${post.slug}`);
+		script.setAttribute("theme", "github-dark");
+		anchor.appendChild(script);
+	}, [])
+
 
 	return (
 		<>
@@ -61,6 +75,7 @@ export default function Post({ post }: PostProps) {
 						className={styles.postContent}
 						dangerouslySetInnerHTML={{ __html: post.content }}
 					/>
+					<div id="pickles-comments"></div>
 				</article>
 			</main>
 		</>
@@ -75,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
 	if (!session?.activeSubscription) {
 		return {
 			redirect: {
-				destination: '/',
+				destination: `/posts/preview/${slug}`,
 				permanent: false
 			}
 		}

@@ -21,9 +21,9 @@ export function Header() {
 					<ActiveLink activeClassName={styles.active} href='/posts' >
 						<a>Posts</a>
 					</ActiveLink>
-					<ActiveLink activeClassName={styles.active} href='/podcasts' >
+					{/* <ActiveLink activeClassName={styles.active} href='/podcasts' >
 						<a>Podcasts</a>
-					</ActiveLink>
+					</ActiveLink> */}
 				</nav>
 				<SiginInButton />
 			</div>
