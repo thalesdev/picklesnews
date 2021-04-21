@@ -24,7 +24,7 @@ export function SiginInButton() {
 			className={styles.signInButton}
 			onClick={() => signIn('github')}>
 			<FaGithub color="#eba417" />
-			Sign in with Github
+			Entrar com o Github
 		</button>
 	)
 }

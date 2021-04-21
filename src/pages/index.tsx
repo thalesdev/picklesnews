@@ -18,31 +18,32 @@ export default function Home({ product }: HomeProps) {
 				<title>Pickles News - Home</title>
 			</Head>
 			<main className={styles.contentContainer}>
+
+				<img src="/images/avatar.svg" alt="Girl coding" />
 				<section className={styles.hero}>
-					<span>👏 Hey, Welcome</span>
+					<span>Olá, bem vindo ao Pickles!</span>
 					<h1>
-						News about the <span>React</span> world.
+						Aqui você tem acesso a diversos conteúdos sobre problemas de <span>programação</span>.
 					</h1>
 					<p>
-						Get all acess to all the publications <br />
-						<span>for {product.amount} mounth</span>
+						Tenha acesso a todas as publicações<br />
+						<span>por apenas {product.amount} por mês</span>
 					</p>
 					<SubscribeButton priceId={product.priceId} />
 				</section>
-				<img src="/images/avatar.svg" alt="Girl coding" />
 			</main>
 		</>
 	)
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const price = await stripe.prices.retrieve('price_1IgWtJIbAuKiUaJWb3q4T61b');
+	const price = await stripe.prices.retrieve('price_1IiYTEIbAuKiUaJWf8zOBQPj');
 
 	const product = {
 		priceId: price.id,
-		amount: new Intl.NumberFormat('en-us', {
+		amount: new Intl.NumberFormat('pt-BR', {
 			style: 'currency',
-			currency: 'USD'
+			currency: 'BRL'
 
 		}).format(price.unit_amount / 100),
 

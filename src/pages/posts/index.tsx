@@ -26,7 +26,7 @@ export default function Posts({ posts }: PostProps) {
 	return (
 		<>
 			<Head>
-				<title>Pickles News - Posts</title>
+				<title>Pickles News - Publicações</title>
 			</Head>
 			<main className={styles.container}>
 				<div className={styles.posts}>
