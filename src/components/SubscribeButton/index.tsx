@@ -21,19 +21,18 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
 	const [session] = useSession()
 	const router = useRouter()
 
-	const handleSubscribe = useCallback(async () => {
+	const handleSubscribe = async () => {
 		if (pending) return;
-
 		if (!session) {
 			signIn('github')
 			return;
 		}
 		setPending(true)
 		if (session.activeSubscription) {
-			router.push('/');
+			router.push('/posts');
+			setPending(false)
 			return;
 		}
-
 		try {
 			const response = await api.post('/subscribe')
 			const { sessionId } = response.data;
@@ -41,10 +40,10 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
 			setPending(false)
 			await stripe.redirectToCheckout({ sessionId })
 		} catch (err) {
-			console.log(err.response)
+			setPending(false)
 			setError(err.message)
 		}
-	}, [pending, session])
+	}
 
 	const handleCloseModal = useCallback(() => {
 		if (error && modalRef.current) {
